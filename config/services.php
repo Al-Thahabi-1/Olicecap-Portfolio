@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    'twilio' => [
+        'sid'              => env('TWILIO_SID'),
+        'token'            => env('TWILIO_TOKEN'),
+        'whatsapp_number'  => env('TWILIO_WHATSAPP_NUMBER', '+14155238886'),
+    ],
+
+    'claude' => [
+        'key' => env('CLAUDE_API_KEY'),
+    ],
+
 ];
