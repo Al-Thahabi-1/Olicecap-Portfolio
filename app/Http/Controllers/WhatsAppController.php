@@ -9,18 +9,22 @@ use Twilio\Rest\Client as TwilioClient;
 class WhatsAppController extends Controller
 {
     private string $systemPrompt = <<<PROMPT
-You are a helpful assistant for Olivecap Studio, a web development studio. Answer visitor questions about our services clearly and professionally. Keep replies short and friendly — suitable for WhatsApp.
+You are a helpful assistant for Olivecap Studio, a web development studio. Answer visitor questions about our services clearly and professionally. Keep replies short and friendly — suitable for WhatsApp. Reply in the same language the user writes in (Arabic or English).
 
 Our services:
-1. Business Website — Full multi-page website. Clean design, fast, mobile-first, built to impress clients and rank in search.
-2. Product Catalog Page — Showcase products/services in a structured catalog. Great for furniture stores, retail, and service providers.
-3. QR Menu Page — Digital menu for restaurants and cafes, accessible via QR code. No app needed.
-4. WhatsApp / Order Page — One-page order form that sends orders directly to WhatsApp. Great for fast conversions.
+1. Business Website — Full multi-page website. Clean design, fast, mobile-first.
+2. Product Catalog Page — Showcase products/services in a structured catalog.
+3. QR Menu Page — Digital menu for restaurants and cafes, accessible via QR code.
+4. WhatsApp / Order Page — One-page order form that sends orders directly to WhatsApp.
 5. Campaign Landing Page — High-converting landing page for promotions or product launches.
-6. Custom Laravel Websites — Tailored Laravel-based websites for performance, flexibility, and long-term scalability.
-7. Admin Panels & Dashboards — Secure dashboards for managing content, products, bookings, or internal data.
-8. Booking & Request Systems — Simple booking/inquiry systems for clinics, service businesses, and local brands.
-9. Cross-Platform Mobile Apps — Android and iOS apps built from a single codebase.
+6. Custom Laravel Websites — Tailored Laravel-based websites for performance and scalability.
+7. Admin Panels & Dashboards — Secure dashboards for managing content, products, bookings.
+8. Booking & Request Systems — Simple booking/inquiry systems for clinics and service businesses.
+9. Cross-Platform Mobile Apps — Android and iOS apps built with Flutter.
+10. AI WhatsApp Chatbot — AI-powered bot that replies to customers 24/7.
+11. Online Booking Calendar — Digital booking system with automatic WhatsApp/SMS reminders.
+12. Google Reviews Automation — Automatically asks happy customers to leave a Google review.
+13. Auto Social Media Posting — Schedule and auto-post content across Instagram, Facebook, TikTok.
 
 If someone wants to start a project or ask for pricing, tell them to contact us at: fares119.fh@gmail.com
 Do not invent prices. Do not answer questions unrelated to our services.
@@ -28,17 +32,58 @@ PROMPT;
 
     public function handle(Request $request)
     {
-        $from    = $request->input('From');
-        $body    = trim($request->input('Body', ''));
+        $from = $request->input('From');
+        $body = trim($request->input('Body', ''));
 
         if (empty($body) || empty($from)) {
             return response('', 200);
         }
 
-        $reply = $this->askClaude($body);
+        $reply = $this->findInFaq($body) ?? $this->askClaude($body);
         $this->sendWhatsApp($from, $reply);
 
         return response('', 200);
+    }
+
+    private function findInFaq(string $userMessage): ?string
+    {
+        $faqPath = database_path('faq.json');
+
+        if (!file_exists($faqPath)) {
+            return null;
+        }
+
+        $faqs    = json_decode(file_get_contents($faqPath), true) ?? [];
+        $message = mb_strtolower($userMessage);
+
+        foreach ($faqs as $item) {
+            $question = mb_strtolower($item['q']);
+
+            // Check if user message matches question keywords or tags
+            $words = array_filter(explode(' ', $question), fn($w) => mb_strlen($w) > 2);
+
+            $matchCount = 0;
+            foreach ($words as $word) {
+                if (str_contains($message, $word)) {
+                    $matchCount++;
+                }
+            }
+
+            // Also check tags
+            foreach ($item['tags'] as $tag) {
+                if (str_contains($message, mb_strtolower($tag))) {
+                    $matchCount += 2;
+                }
+            }
+
+            // Match if more than 30% of key words are found
+            $threshold = max(1, count($words) * 0.3);
+            if ($matchCount >= $threshold) {
+                return $item['a'];
+            }
+        }
+
+        return null;
     }
 
     private function askClaude(string $userMessage): string
@@ -57,10 +102,10 @@ PROMPT;
         ]);
 
         if ($response->failed()) {
-            return "Sorry, I'm having trouble right now. Please contact us at fares119.fh@gmail.com";
+            return "عذراً، هناك مشكلة تقنية حالياً. تواصل معنا على: fares119.fh@gmail.com";
         }
 
-        return $response->json('content.0.text', "I didn't understand that. Could you rephrase?");
+        return $response->json('content.0.text', "لم أفهم سؤالك، هل يمكنك إعادة الصياغة؟");
     }
 
     private function sendWhatsApp(string $to, string $message): void
