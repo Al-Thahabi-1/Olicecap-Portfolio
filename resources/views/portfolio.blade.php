@@ -1300,7 +1300,7 @@
                         <span class="work-tag">Trust</span>
                         <span class="work-tag">Contact Flow</span>
                     </div>
-                    <a href="https://almostafa.com/" target="_blank" class="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5">Visit ↗</a>
+                    <a href="https://almostafa.company/" target="_blank" class="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5">Visit ↗</a>
                 </div>
             </div>
 
@@ -1334,12 +1334,13 @@
                     <p class="text-slate text-sm leading-relaxed font-light mb-5" data-i18n="work.gum_desc">
                         A local business website designed to present products clearly and improve customer communication through simple conversion-focused structure.
                     </p>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap gap-2 mb-5">
                         <span class="work-tag">Local Business</span>
                         <span class="work-tag">Product Website</span>
                         <span class="work-tag">WhatsApp CTA</span>
                         <span class="work-tag">Conversion</span>
                     </div>
+                    <a href="https://gumushaneyayla.shop/" target="_blank" class="btn-outline text-xs py-2 px-4 inline-flex items-center gap-1.5">Visit ↗</a>
                 </div>
             </div>
 
