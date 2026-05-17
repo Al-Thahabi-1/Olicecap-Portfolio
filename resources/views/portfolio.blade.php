@@ -1543,7 +1543,7 @@
                 </div>
             </a>
 
-<a href="https://linkedin.com/in/faresabughassan" target="_blank" class="contact-link reveal reveal-delay-3">
+            <a href="https://www.linkedin.com/company/olivecap-studio/?lipi=urn%3Ali%3Apage%3Ad_flagship3_messaging_conversation_detail%3ByrPnKaYVQe6hZnijdokuVQ%3D%3D" target="_blank" class="contact-link reveal reveal-delay-3">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" class="text-blue-400 flex-shrink-0">
                     <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
@@ -1563,7 +1563,7 @@
                 </div>
             </a>
 
-            <a href="https://instagram.com/olivecap.tr" target="_blank" class="contact-link reveal" style="transition-delay:.4s">
+            <a href="https://instagram.com/olivecap_studio" target="_blank" class="contact-link reveal" style="transition-delay:.4s">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="flex-shrink-0" style="color:#e1306c">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                     <circle cx="12" cy="12" r="4"/>

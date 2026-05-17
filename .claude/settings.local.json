@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-Content \"resources/views/portfolio.blade.php\")",
+      "Bash(Measure-Object -Line)",
+      "PowerShell(Get-Content *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git commit -m 'Switch theme from dark to light — Cool Mist palette *)",
+      "Bash(git revert *)",
+      "Bash(git stash *)",
+      "Bash(git commit -m 'Revert to dark theme + fix Gümüşhane visit button position *)"
+    ]
+  }
+}
